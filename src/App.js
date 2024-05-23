@@ -1,23 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import "./styles/main.css";
+
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import Navbar from "./components/navbar/Navbar";
+import Footer from "./components/footer/Footer";
+import Home from "./pages/Home";
+import Projects from "./pages/Project";
+import Contacts from "./pages/Contacts";
+import Project1 from "./pages/Project1";
+
+import ScrollToTop from "./utils/scrollToTop"; //фикс скролла (всегда выравниваем по верху при переходе)
+
+// в project переходим на нужный проект согласно индексу проекта в массиве [0-5]
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <ScrollToTop/>
+        <Navbar />
+        {/* строим маршруты по изменяющимся частям*/}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/project/:id" element={<Project1 />} />
+          <Route path="/contacts" element={<Contacts />} />
+        </Routes>
+        <Footer />
+      </Router>
     </div>
   );
 }
